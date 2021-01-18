@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <endian.h>
+
+
 
 uint64_t HexToDigit(char* in) {
 
@@ -11,12 +14,17 @@ uint64_t HexToDigit(char* in) {
     if (in[0] == '0' && in[1] == 'x')
         tmp_ptr=&in[2];
 
-    memset(reverse,'\0',strlen(tmp_ptr)+1);
-    // To fix the difference of the endian
-    for (int i = 0; i < strlen(tmp_ptr); i++)
-    {
-        reverse[i]=tmp_ptr[strlen(tmp_ptr)-1-i];
-    }
+    #if __BYTE_ORDER == __BIG_ENDIAN
+        reverse=tmp_ptr;
+    #else
+        memset(reverse,'\0',strlen(tmp_ptr)+1);
+        for (int i = 0; i < strlen(tmp_ptr); i++)
+        {
+            reverse[i]=tmp_ptr[strlen(tmp_ptr)-1-i];
+        }
+
+    #endif
+    
     memcpy(&payload, reverse , sizeof(char)*strlen(tmp_ptr));
     
     uint64_t letter = payload & 0x4040404040404040;
@@ -33,6 +41,6 @@ uint64_t HexToDigit(char* in) {
 
 int main()
 {
-    printf("%ld\n", HexToDigit("0x12"));
+    printf("%ld\n", HexToDigit("0x1A"));
     return 0;
 }
