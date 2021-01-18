@@ -59,5 +59,7 @@ static inline size_t div_compute(div_info_t *div_info, size_t n) {
 	 * mul; mov edx eax; on x86, umull on arm, etc.).
 	 */
 	size_t i = ((uint64_t)n * (uint64_t)div_info->magic) >> 32;
+    //assert(i * div_info->d == n);
 	return i;
 }
+ 
