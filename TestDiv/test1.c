@@ -14,7 +14,7 @@ void div_init(div_info_t *div_info, size_t divisor);
 size_t div_compute(div_info_t *div_info, size_t n);
 
 static uint64_t MAX = ((uint64_t)(1) << 32) - 1;
-int  main(int argc, char **argv){
+int  main(){
 
     srand(1);
     struct timespec tt1, tt2;
@@ -22,7 +22,7 @@ int  main(int argc, char **argv){
     u_int64_t divisor=rand();
     u_int64_t ans;
     u_int64_t num;
-    div_init(&DIV, divisor) ;
+    
 
     srand(1);
 
@@ -36,6 +36,7 @@ int  main(int argc, char **argv){
 
     srand(1);
     clock_gettime(CLOCK_MONOTONIC, &tt1);
+    div_init(&DIV, divisor) ;
     for(u_int64_t i=1 ; i< 10000 ;i++){
         num =rand();
         ans = div_compute(&DIV, num);
