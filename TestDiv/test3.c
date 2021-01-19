@@ -17,8 +17,8 @@ static uint64_t MAX = ((uint64_t)(1) << 32) - 1;
 int main()
 {
     struct timespec t1, t2;
-    long long time1[10000];
-    long long time2[10000];
+    long long time1[5000];
+    long long time2[5000];
     long long total1=0,total2=0;
     long long avg_time1;
     long long avg_time2;
@@ -35,13 +35,11 @@ int main()
         
         size_t ans1 = div_compute(&DIV, num);
         clock_gettime(CLOCK_MONOTONIC, &t2);
-        printf("%ld\n",ans1);
         time1[i-2] = (long long) (t2.tv_sec * 1e9 + t2.tv_nsec) - (long long) (t1.tv_sec * 1e9 + t1.tv_nsec);
                           
         clock_gettime(CLOCK_MONOTONIC, &t1);
         size_t ans2 = num / divisor;
         clock_gettime(CLOCK_MONOTONIC, &t2);
-        printf("%ld\n",ans2);
 
         time2[i-2] = (long long) (t2.tv_sec * 1e9 + t2.tv_nsec) - (long long) (t1.tv_sec * 1e9 + t1.tv_nsec);
 
