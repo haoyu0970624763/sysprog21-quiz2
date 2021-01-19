@@ -30,6 +30,7 @@ int  main(){
     for(u_int64_t i=1 ; i< 10000 ;i++){
         num=rand();
         ans= num / divisor;
+		printf("%ld\n",ans);
     }
     clock_gettime(CLOCK_MONOTONIC, &tt2);
     long long time1 = (long long) (tt2.tv_sec * 1e9 + tt2.tv_nsec) - (long long) (tt1.tv_sec * 1e9 + tt1.tv_nsec);
@@ -40,11 +41,12 @@ int  main(){
     for(u_int64_t i=1 ; i< 10000 ;i++){
         num =rand();
         ans = div_compute(&DIV, num);
+		printf("%ld\n",ans);
     }
     clock_gettime(CLOCK_MONOTONIC, &tt2);
     long long time2 = (long long) (tt2.tv_sec * 1e9 + tt2.tv_nsec) -(long long) (tt1.tv_sec * 1e9 + tt1.tv_nsec);
-    printf("div: %lld\n",  time1 );
-    printf("quick div: %lld\n",  time2 );
+    printf("total div: is %lld ns\n",  time1 );
+    printf("total quick div: is %lld\n",  time2 );
     
     return 0;
 }

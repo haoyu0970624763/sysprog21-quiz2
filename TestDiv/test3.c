@@ -17,8 +17,8 @@ static uint64_t MAX = ((uint64_t)(1) << 32) - 1;
 int main()
 {
     struct timespec t1, t2;
-    long long time1[5000];
-    long long time2[5000];
+    long long time1[10000];
+    long long time2[10000];
     long long total1=0,total2=0;
     long long avg_time1;
     long long avg_time2;
@@ -27,20 +27,21 @@ int main()
     for (uint64_t i = 2; i <= 5001; i++) {
 
         uint64_t num = rand() % MAX;
+        u_int64_t divisor=rand();
 
         clock_gettime(CLOCK_MONOTONIC, &t1);
         div_info_t DIV;
-        div_init(&DIV, rand()); 
-        
+        div_init(&DIV, divisor); 
         
         size_t ans1 = div_compute(&DIV, num);
         clock_gettime(CLOCK_MONOTONIC, &t2);
-
+        printf("%ld\n",ans1);
         time1[i-2] = (long long) (t2.tv_sec * 1e9 + t2.tv_nsec) - (long long) (t1.tv_sec * 1e9 + t1.tv_nsec);
                           
         clock_gettime(CLOCK_MONOTONIC, &t1);
-        size_t ans2 = num / i;
+        size_t ans2 = num / divisor;
         clock_gettime(CLOCK_MONOTONIC, &t2);
+        printf("%ld\n",ans2);
 
         time2[i-2] = (long long) (t2.tv_sec * 1e9 + t2.tv_nsec) - (long long) (t1.tv_sec * 1e9 + t1.tv_nsec);
 
@@ -53,8 +54,8 @@ int main()
     avg_time1 =total1/5000;
     avg_time2=total2/5000;
 
-    printf("average time for quick div is %lld\n",avg_time1);
-    printf("average time for div is %lld\n",avg_time2);
+    printf("average time for quick div is %lld ns\n",avg_time1);
+    printf("average time for div is %lld ns\n",avg_time2);
 }
 
 void div_init(div_info_t *div_info, size_t divisor) {
@@ -98,4 +99,3 @@ size_t div_compute(div_info_t *div_info, size_t n) {
     //assert(i * div_info->d == n);
 	return i;
 }
-
