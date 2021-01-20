@@ -8,7 +8,7 @@ int singleNumber(int *nums, int numsSize)
     for(int i=0;i<numsSize;i++) {
         appear1 = (~(tmp2 | tmp1) & nums[i]) | tmp1 & ~nums[i] | tmp3 & nums[i];
         appear2 = tmp1 & nums[i] | tmp2 & ~nums[i];
-        appear3 = tmp2 & nums[i] | appear3 & ~nums[i];
+        appear3 = tmp2 & nums[i] | tmp3 & ~nums[i];
         tmp1 = appear1;
         tmp2 = appear2;
         tmp3 =appear3;
